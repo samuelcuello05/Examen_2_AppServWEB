@@ -8,7 +8,7 @@ using System.Web.Http;
 namespace Examen_2_AppServWEB.Controllers
 {
     [RoutePrefix("api/Vehiculos")]
-    public class VehiculosController
+    public class VehiculosController : ApiController
     {
         [HttpGet]
         [Route("ConsultaMultas")]

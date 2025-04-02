@@ -9,6 +9,7 @@
 
 namespace Examen_2_AppServWEB.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,7 +18,7 @@ namespace Examen_2_AppServWEB.Models
         public int idFoto { get; set; }
         public string NombreFoto { get; set; }
         public int idInfraccion { get; set; }
-    
+        [JsonIgnore]
         public virtual Infraccion Infraccion { get; set; }
     }
 }

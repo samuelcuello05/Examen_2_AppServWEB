@@ -9,7 +9,7 @@ using System.Web.Http;
 namespace Examen_2_AppServWEB.Controllers
 {
     [RoutePrefix("api/Infraccion")] 
-    public class InfraccionController: ApiController
+    public class InfraccionController : ApiController
     {
         [HttpGet]
         [Route("Consultar")]
@@ -21,11 +21,11 @@ namespace Examen_2_AppServWEB.Controllers
 
         [HttpPost]
         [Route("Agregar")]
-        public string Agregar([FromBody] Infraccion infraccion,[FromBody] Vehiculo vehiculo )
+        public string Agregar([FromBody] Infraccion infraccion )
         {
             clsInfraccion infraccioncls = new clsInfraccion();
             infraccioncls.infraccion = infraccion;
-            return infraccioncls.Agregar(vehiculo);
+            return infraccioncls.Agregar();
         }
 
     }

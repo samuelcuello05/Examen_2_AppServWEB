@@ -9,6 +9,7 @@
 
 namespace Examen_2_AppServWEB.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,8 +25,10 @@ namespace Examen_2_AppServWEB.Models
         public string TipoVehiculo { get; set; }
         public string Marca { get; set; }
         public string Color { get; set; }
-    
+
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+
         public virtual ICollection<Infraccion> Infraccions { get; set; }
     }
 }

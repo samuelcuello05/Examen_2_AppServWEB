@@ -12,12 +12,19 @@ namespace Examen_2_AppServWEB.Clases
         
         public Infraccion infraccion { get; set; }
 
+        public Vehiculo vehiculo { get; set; }
+
     
-        public string Agregar(Vehiculo vehiculo)
+        public string Agregar()
         {
            
             try
             {
+                if (vehiculo == null || string.IsNullOrEmpty(vehiculo.Placa))
+                {
+                    return "Error: Los datos del vehículo no son válidos.";
+                }
+
                 Vehiculo veh = dbExamen.Vehiculoes.FirstOrDefault(p => p.Placa == vehiculo.Placa);
 
                 if (veh!=null)
@@ -28,8 +35,18 @@ namespace Examen_2_AppServWEB.Clases
                 }
                 else
                 {
-                    clsVehiculo clsvehiculo = new clsVehiculo();
-                    clsvehiculo.Insertar();
+                    Vehiculo nuevoVehiculo = new Vehiculo
+                    {
+                        Placa = vehiculo.Placa,
+                        TipoVehiculo = vehiculo.TipoVehiculo,
+                        Marca = vehiculo.Marca, // Asegúrate de tener estos datos en la variable `vehiculo`
+                        Color = vehiculo.Color
+                    };
+                    //clsVehiculo clsvehiculo = new clsVehiculo();
+                    //clsvehiculo.Insertar();
+                    dbExamen.Vehiculoes.Add(nuevoVehiculo);
+                    dbExamen.SaveChanges();
+                    infraccion.PlacaVehiculo = nuevoVehiculo.Placa;
                     dbExamen.Infraccions.Add(infraccion);
                     dbExamen.SaveChanges();
                     return $"Se agrego primero el vehiculo con la placa {vehiculo.Placa}, porque este no se encontraba en el sistema y tambien se agrego la infraccion a este vehiculo";

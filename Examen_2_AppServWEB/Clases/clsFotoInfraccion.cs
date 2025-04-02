@@ -10,7 +10,7 @@ namespace Examen_2_AppServWEB.Clases
     {
         private DBExamenEntities dbExamen = new DBExamenEntities();
  
-        public string idFoto { get; set; }
+        public string idInfraccion { get; set; }
         public List<string> Archivos { get; set; }
 
         public string GrabarImagenes()
@@ -23,7 +23,7 @@ namespace Examen_2_AppServWEB.Clases
                     foreach (var Archivo in Archivos)
                     {
                         FotoInfraccion foto = new FotoInfraccion();
-                        foto.idInfraccion = Convert.ToInt32(idFoto);
+                        foto.idInfraccion = Convert.ToInt32(idInfraccion);
                         foto.NombreFoto = Archivo;
                         dbExamen.FotoInfraccions.Add(foto);
                         dbExamen.SaveChanges();

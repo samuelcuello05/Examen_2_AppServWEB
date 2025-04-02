@@ -20,23 +20,23 @@ namespace Examen_2_AppServWEB.Clases
             return $"Se agrego el vehiculo con la siguiente placa {vehiculo.Placa} a la base de datos";
         }
 
-        public IQueryable ConsultarMultas(string placa)
+        public IQueryable ConsultarMultas(string PlacaConsulta)
         {
             return from V in dbExamen.Set<Vehiculo>()
                    join I in dbExamen.Set<Infraccion>()
                    on V.Placa equals I.PlacaVehiculo
                    join FI in dbExamen.Set<FotoInfraccion>()
                    on I.idFotoMulta equals FI.idInfraccion
-                   where V.Placa == placa
+                   where V.Placa == PlacaConsulta
                    select new
                    {
-                       Placa = V.Placa,
-                       TipoVehiculo = V.TipoVehiculo,
-                       Marca = V.Marca,
-                       Color = V.Color,
+                       placa = V.Placa,
+                       tipoVehiculo = V.TipoVehiculo,
+                       marca = V.Marca,
+                       color = V.Color,
                        IdFotoMulta = I.idFotoMulta,
-                       FechaInfraccion = I.FechaInfraccion,
-                       TipoInfraccion = I.TipoInfraccion,
+                       fechaInfraccion = I.FechaInfraccion,
+                       tipoInfraccion = I.TipoInfraccion,
                        Imagen = FI.NombreFoto
 
                    };

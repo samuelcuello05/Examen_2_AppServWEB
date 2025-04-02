@@ -132,9 +132,9 @@ namespace Examen_2_AppServWEB.Clases
         {
             switch (Proceso.ToUpper())
             {
-                case "VEHICULO":
+                case "INFRACCION":
                     clsFotoInfraccion FotosInfraccion = new clsFotoInfraccion();
-                    FotosInfraccion.idFoto = Datos;//Debe venir la información que se procesa en la base de datos, para nuestro caso, el código de la foto
+                    FotosInfraccion.idInfraccion = Datos;//Debe venir la información que se procesa en la base de datos, para nuestro caso, el código de la foto
                     FotosInfraccion.Archivos = Archivos;
                     return FotosInfraccion.GrabarImagenes();
                 default:

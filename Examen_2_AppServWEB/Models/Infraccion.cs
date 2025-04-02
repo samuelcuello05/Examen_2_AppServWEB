@@ -9,6 +9,7 @@
 
 namespace Examen_2_AppServWEB.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -24,7 +25,8 @@ namespace Examen_2_AppServWEB.Models
         public string PlacaVehiculo { get; set; }
         public System.DateTime FechaInfraccion { get; set; }
         public string TipoInfraccion { get; set; }
-    
+        [JsonIgnore]
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<FotoInfraccion> FotoInfraccions { get; set; }
         public virtual Vehiculo Vehiculo { get; set; }
