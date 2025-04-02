@@ -163,11 +163,12 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Clases\clsFotoInfraccion.cs" />
+    <Compile Include="Clases\clsVehiculo.cs" />
     <Compile Include="Clases\clsInfraccion.cs" />
-    <Compile Include="Clases\clsUploadFiles.cs" />
-    <Compile Include="Controllers\FotosInfraccionController.cs" />
+    <Compile Include="Clases\clsUpload.cs" />
+    <Compile Include="Controllers\VehiculosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\InfraccionesController.cs" />
+    <Compile Include="Controllers\InfraccionController.cs" />
     <Compile Include="Controllers\UploadFilesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
