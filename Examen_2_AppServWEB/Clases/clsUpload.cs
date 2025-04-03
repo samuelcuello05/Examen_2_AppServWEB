@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Examen_2_AppServWEB.Models;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -13,16 +14,17 @@ namespace Examen_2_AppServWEB.Clases
 {
     public class clsUpload
     {
-        public HttpRequestMessage request {  get; set; }
+        public HttpRequestMessage Request {  get; set; }
 
         public string Datos { get; set; }
 
         public string Proceso { get; set; }
 
+
         public async Task<HttpResponseMessage> GrabarArchivo(bool Actualizar)
         {
             string RptaError = "";
-            if (!request.Content.IsMimeMultipartContent())
+            if (!Request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.UnsupportedMediaType);
             }
@@ -32,7 +34,7 @@ namespace Examen_2_AppServWEB.Clases
 
             try
             {
-                await request.Content.ReadAsMultipartAsync(provider);
+                await Request.Content.ReadAsMultipartAsync(provider);
                 List<string> Archivos = new List<string>();
                 foreach (MultipartFileData file in provider.FileData)
                 {
@@ -79,33 +81,33 @@ namespace Examen_2_AppServWEB.Clases
                     //Envia a grabar la informacion de las imagenes
                     string Respuesta = ProcesarArchivos(Archivos);
                     //Se da una respuesta de exito
-                    return request.CreateResponse(HttpStatusCode.OK, "Archivo subido con éxito");
+                    return Request.CreateResponse(HttpStatusCode.OK, "Archivo subido con éxito");
                 }
                 else
                 {
                     if (Actualizar)
                     {
-                        return request.CreateResponse(HttpStatusCode.OK, "Archivo actualizado con éxito");
+                        return Request.CreateResponse(HttpStatusCode.OK, "Archivo actualizado con éxito");
                     }
                     else
                     {
-                        return request.CreateErrorResponse(HttpStatusCode.Conflict, "El(los) archivo(s) ya existe(n)");
+                        return Request.CreateErrorResponse(HttpStatusCode.Conflict, "El(los) archivo(s) ya existe(n)");
                     }
                 }
             }
             catch (Exception ex)
             {
-                return request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error en cargar el archivo " + ex.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error en cargar el archivo " + ex.Message);
             }
         }
 
 
-        public HttpResponseMessage ConsultarArchivo(string NombreArchivo)
+        public HttpResponseMessage ConsultarArchivo(string NombreFoto)
         {
             try
             {
                 string Ruta = HttpContext.Current.Server.MapPath("~/Archivos");
-                string Archivo = Path.Combine(Ruta, NombreArchivo);
+                string Archivo = Path.Combine(Ruta, NombreFoto);
 
                 if (File.Exists(Archivo))
                 {
@@ -113,18 +115,18 @@ namespace Examen_2_AppServWEB.Clases
                     var stream = new FileStream(Archivo, FileMode.Open, FileAccess.Read);
                     response.Content = new StreamContent(stream);
                     response.Content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("attachment");
-                    response.Content.Headers.ContentDisposition.FileName = NombreArchivo;
+                    response.Content.Headers.ContentDisposition.FileName = NombreFoto;
                     response.Content.Headers.ContentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/octet-stream");
                     return response;
                 }
                 else
                 {
-                    return request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo  no encontrado");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo  no encontrado");
                 }
             }
             catch (Exception ex)
             {
-                return request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
             }
         }
 
@@ -141,5 +143,33 @@ namespace Examen_2_AppServWEB.Clases
                     return "Proceso no válido";
             }
         }
+
+
+        public HttpResponseMessage Eliminar(string Nombrefoto)
+        {
+            try
+            {
+                string Ruta = HttpContext.Current.Server.MapPath("~/Archivos");
+                string Archivo = Path.Combine(Ruta, Nombrefoto);
+
+                if (File.Exists(Archivo))
+                {
+                    
+                    File.Delete(Archivo);
+                    return Request.CreateResponse(HttpStatusCode.OK, $"El archivo  fue eliminado correctamente.");
+                   
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo no se encontro");
+                }
+            }
+            catch (Exception ex)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
+            }
+
+        }
+
     }
 }

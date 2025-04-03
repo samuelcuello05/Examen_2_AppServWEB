@@ -17,7 +17,7 @@ namespace Examen_2_AppServWEB.Controllers
         public async Task<HttpResponseMessage> GrabarArchivo(HttpRequestMessage Request, string Datos, string Proceso)
         {
             clsUpload UploadFiles = new clsUpload();
-            UploadFiles.request = Request;
+            UploadFiles.Request = Request;
             UploadFiles.Datos = Datos;
             UploadFiles.Proceso = Proceso;
             return await UploadFiles.GrabarArchivo(false);
@@ -34,10 +34,20 @@ namespace Examen_2_AppServWEB.Controllers
         public async Task<HttpResponseMessage> ActualizarArchivo(HttpRequestMessage Request, string Datos, string Proceso)
         {
             clsUpload UploadFiles = new clsUpload();
-            UploadFiles.request = Request;
+            UploadFiles.Request = Request;
             UploadFiles.Datos = Datos;
             UploadFiles.Proceso = Proceso;
             return await UploadFiles.GrabarArchivo(true);
+        }
+
+
+        [HttpDelete]
+
+        public HttpResponseMessage Eliminar(string nombreFoto)
+        {  
+            clsUpload upload = new clsUpload();
+            return upload.Eliminar(nombreFoto);
+
         }
     }
 }
