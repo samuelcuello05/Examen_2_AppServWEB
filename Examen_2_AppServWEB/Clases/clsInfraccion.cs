@@ -16,7 +16,7 @@ namespace Examen_2_AppServWEB.Clases
 {
     public class clsInfraccion
     {
-        private DBExamenEntities dbExamen = new DBExamenEntities();
+        private DBExamenEntities1 dbExamen = new DBExamenEntities1();
 
         /*
         public class Fotomulta
@@ -39,7 +39,7 @@ namespace Examen_2_AppServWEB.Clases
                 {
 
                     var vehiculos = dbExamen.Vehiculoes.FirstOrDefault(p => p.Placa == vehiculoBD.Placa);
-                    if (vehiculos == null)
+                    if (vehiculos == null && infraccionBD.PlacaVehiculo == vehiculoBD.Placa)
                     {
                         dbExamen.Vehiculoes.Add(vehiculoBD);
                         dbExamen.SaveChanges();
@@ -47,15 +47,12 @@ namespace Examen_2_AppServWEB.Clases
                         dbExamen.Infraccions.Add(infraccionBD);
                         dbExamen.SaveChanges();
                     }
+                    else
+                    {
+                        return "Error, la placa del vehiculo no coincide con la placa de la fotomulta.";
+                    }
 
-                    infraccionBD.PlacaVehiculo = vehiculoBD.Placa;
-                    dbExamen.Infraccions.Add(infraccionBD);
-                    dbExamen.SaveChanges();
-
-
-
-
-                    transaction.Commit();
+                        transaction.Commit();
 
                     return "Fotomulta registrada correctamente.";
                 }

@@ -173,29 +173,32 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBexamen.Context.cs">
+    <Compile Include="Models\DBExamen.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBexamen.Context.tt</DependentUpon>
+      <DependentUpon>DBExamen.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBexamen.cs">
+    <Compile Include="Models\DBExamen.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBexamen.tt</DependentUpon>
+      <DependentUpon>DBExamen.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\DBexamen.Designer.cs">
+    <Compile Include="Models\DBExamen.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>DBexamen.edmx</DependentUpon>
+      <DependentUpon>DBExamen.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\FotoInfraccion.cs">
-      <DependentUpon>DBexamen.tt</DependentUpon>
+      <DependentUpon>DBExamen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Infraccion.cs">
-      <DependentUpon>DBexamen.tt</DependentUpon>
+      <DependentUpon>DBExamen.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sysdiagram.cs">
+      <DependentUpon>DBExamen.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Vehiculo.cs">
-      <DependentUpon>DBexamen.tt</DependentUpon>
+      <DependentUpon>DBExamen.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -219,15 +222,15 @@
     <Content Include="Content\bootstrap.rtl.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="Models\DBexamen.Context.tt">
+    <Content Include="Models\DBExamen.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>DBexamen.Context.cs</LastGenOutput>
-      <DependentUpon>DBexamen.edmx</DependentUpon>
+      <DependentUpon>DBExamen.edmx</DependentUpon>
+      <LastGenOutput>DBExamen.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\DBexamen.tt">
+    <Content Include="Models\DBExamen.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>DBexamen.edmx</DependentUpon>
-      <LastGenOutput>DBexamen.cs</LastGenOutput>
+      <DependentUpon>DBExamen.edmx</DependentUpon>
+      <LastGenOutput>DBExamen.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -254,12 +257,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\DBexamen.edmx">
+    <EntityDeploy Include="Models\DBExamen.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>DBexamen.Designer.cs</LastGenOutput>
+      <LastGenOutput>DBExamen.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\DBexamen.edmx.diagram">
-      <DependentUpon>DBexamen.edmx</DependentUpon>
+    <Content Include="Models\DBExamen.edmx.diagram">
+      <DependentUpon>DBExamen.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />

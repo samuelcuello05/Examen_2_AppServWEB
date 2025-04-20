@@ -10,7 +10,7 @@ namespace Examen_2_AppServWEB.Clases
 {
     public class clsFotoInfraccion
     {
-        private DBExamenEntities dbExamen = new DBExamenEntities();
+        private DBExamenEntities1 dbExamen = new DBExamenEntities1();
  
         public string idInfraccion { get; set; }
         public List<string> Archivos { get; set; }

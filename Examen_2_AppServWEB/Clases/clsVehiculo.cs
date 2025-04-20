@@ -9,7 +9,7 @@ namespace Examen_2_AppServWEB.Clases
 {
     public class clsVehiculo
     {
-        private DBExamenEntities dbExamen = new DBExamenEntities();
+        private DBExamenEntities1 dbExamen = new DBExamenEntities1();
 
         Vehiculo vehiculo = new Vehiculo();
 

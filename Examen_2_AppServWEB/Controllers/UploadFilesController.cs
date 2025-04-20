@@ -12,8 +12,8 @@ namespace Examen_2_AppServWEB.Controllers
     [RoutePrefix("api/UploadFiles")]
     public class UploadFilesController : ApiController
     {
-        [HttpPost]
 
+        [HttpPost]
         public async Task<HttpResponseMessage> GrabarArchivo(HttpRequestMessage Request, string Datos, string Proceso)
         {
             clsUpload UploadFiles = new clsUpload();
@@ -39,7 +39,6 @@ namespace Examen_2_AppServWEB.Controllers
             UploadFiles.Proceso = Proceso;
             return await UploadFiles.GrabarArchivo(true);
         }
-
 
         [HttpDelete]
         public HttpResponseMessage EliminarArchivo(string NombreImagen)
