@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Data.Entity;
 using System.Threading.Tasks;
 using System.Net.Http;
+using Examen_2_AppServWEB.Controllers;
 
 
 namespace Examen_2_AppServWEB.Clases
@@ -17,44 +18,53 @@ namespace Examen_2_AppServWEB.Clases
     {
         private DBExamenEntities dbExamen = new DBExamenEntities();
 
+        /*
+        public class Fotomulta
+        {
+            public Infraccion Infraccion { get; set; }
+            public Vehiculo Vehiculo { get; set; }
+        }*/
 
-    
         public Infraccion infraccion { get; set; }
 
-      
+        public Vehiculo vehiculo { get; set; }
 
-        /*
-        public string Agregar([FromBody] Fotomulta fotomulta)
+
+
+        public string Agregar(Infraccion infraccionBD, Vehiculo vehiculoBD)
         {
-          
-
             try
             {
                 using (var transaction = dbExamen.Database.BeginTransaction())
                 {
-                    
-                    var vehiculoEnDb = dbExamen.Vehiculoes.FirstOrDefault(p => p.Placa == fotomulta.Vehiculo.Placa);
-                    if (vehiculoEnDb == null)
+
+                    var vehiculos = dbExamen.Vehiculoes.FirstOrDefault(p => p.Placa == vehiculoBD.Placa);
+                    if (vehiculos == null)
                     {
-                        dbExamen.Vehiculoes.Add(fotomulta.Vehiculo);
+                        dbExamen.Vehiculoes.Add(vehiculoBD);
+                        dbExamen.SaveChanges();
+                        infraccionBD.PlacaVehiculo = vehiculoBD.Placa;
+                        dbExamen.Infraccions.Add(infraccionBD);
                         dbExamen.SaveChanges();
                     }
 
-                    
-                    fotomulta.Infraccion.PlacaVehiculo = fotomulta.Vehiculo.Placa;
-                    dbExamen.Infraccions.Add(fotomulta.Infraccion);
+                    infraccionBD.PlacaVehiculo = vehiculoBD.Placa;
+                    dbExamen.Infraccions.Add(infraccionBD);
                     dbExamen.SaveChanges();
 
+
+
+
                     transaction.Commit();
-                    
-                    return  "Fotomulta registrada correctamente.";
+
+                    return "Fotomulta registrada correctamente.";
                 }
             }
             catch (Exception ex)
             {
-                return  "Error: " + ex.Message;
+                return "Error: " + ex.Message;
             }
-        }*/
+        }
 
         public Infraccion ConsultarXId(int IdInfraccion)
         {

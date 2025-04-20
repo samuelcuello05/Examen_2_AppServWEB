@@ -1,7 +1,9 @@
 ﻿using Examen_2_AppServWEB.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Web;
 
 namespace Examen_2_AppServWEB.Clases
@@ -40,6 +42,29 @@ namespace Examen_2_AppServWEB.Clases
             catch (Exception ex)
             {
                 return "Error grabando la imagen " + ex.Message;
+            }
+        }
+
+
+        public string EliminarImagenInfraccion(string nombreImagen)
+        {
+            try
+            {
+                FotoInfraccion foto = dbExamen.FotoInfraccions.FirstOrDefault(f => f.NombreFoto == nombreImagen);
+                if (foto != null)
+                {
+                    dbExamen.FotoInfraccions.Remove(foto);
+                    dbExamen.SaveChanges();
+                    return "Foto eliminada de la base de datos.";
+                }
+                else
+                {
+                    return "No se encontró la imagen en la base de datos.";
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Error al eliminar la imagen de la base de datos: " + ex.Message;
             }
         }
     }

@@ -14,17 +14,18 @@ namespace Examen_2_AppServWEB.Clases
 {
     public class clsUpload
     {
-        public HttpRequestMessage Request {  get; set; }
+        public HttpRequestMessage request {  get; set; }
 
         public string Datos { get; set; }
 
         public string Proceso { get; set; }
 
+        
 
         public async Task<HttpResponseMessage> GrabarArchivo(bool Actualizar)
         {
             string RptaError = "";
-            if (!Request.Content.IsMimeMultipartContent())
+            if (!request.Content.IsMimeMultipartContent())
             {
                 throw new HttpResponseException(System.Net.HttpStatusCode.UnsupportedMediaType);
             }
@@ -34,7 +35,7 @@ namespace Examen_2_AppServWEB.Clases
 
             try
             {
-                await Request.Content.ReadAsMultipartAsync(provider);
+                await request.Content.ReadAsMultipartAsync(provider);
                 List<string> Archivos = new List<string>();
                 foreach (MultipartFileData file in provider.FileData)
                 {
@@ -81,23 +82,23 @@ namespace Examen_2_AppServWEB.Clases
                     //Envia a grabar la informacion de las imagenes
                     string Respuesta = ProcesarArchivos(Archivos);
                     //Se da una respuesta de exito
-                    return Request.CreateResponse(HttpStatusCode.OK, "Archivo subido con éxito");
+                    return request.CreateResponse(HttpStatusCode.OK, "Archivo subido con éxito");
                 }
                 else
                 {
                     if (Actualizar)
                     {
-                        return Request.CreateResponse(HttpStatusCode.OK, "Archivo actualizado con éxito");
+                        return request.CreateResponse(HttpStatusCode.OK, "Archivo actualizado con éxito");
                     }
                     else
                     {
-                        return Request.CreateErrorResponse(HttpStatusCode.Conflict, "El(los) archivo(s) ya existe(n)");
+                        return request.CreateErrorResponse(HttpStatusCode.Conflict, "El(los) archivo(s) ya existe(n)");
                     }
                 }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error en cargar el archivo " + ex.Message);
+                return request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error en cargar el archivo " + ex.Message);
             }
         }
 
@@ -121,12 +122,12 @@ namespace Examen_2_AppServWEB.Clases
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo  no encontrado");
+                    return request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo  no encontrado");
                 }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
+                return request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
             }
         }
 
@@ -145,31 +146,43 @@ namespace Examen_2_AppServWEB.Clases
         }
 
 
-        public HttpResponseMessage Eliminar(string Nombrefoto)
+        public HttpResponseMessage EliminarFoto(string nombreImagen)
         {
             try
             {
-                string Ruta = HttpContext.Current.Server.MapPath("~/Archivos");
-                string Archivo = Path.Combine(Ruta, Nombrefoto);
-
-                if (File.Exists(Archivo))
+                string ruta = HttpContext.Current.Server.MapPath("~/Archivos");
+                string rutaArchivo = Path.Combine(ruta, nombreImagen);
+                clsFotoInfraccion clsFotoIn = new clsFotoInfraccion();
+                if (File.Exists(rutaArchivo))
                 {
+                    File.Delete(rutaArchivo);
+                    string resp = clsFotoIn.EliminarImagenInfraccion(nombreImagen);
                     
-                    File.Delete(Archivo);
-                    return Request.CreateResponse(HttpStatusCode.OK, $"El archivo  fue eliminado correctamente.");
-                   
+                    HttpResponseMessage response = new HttpResponseMessage(System.Net.HttpStatusCode.OK)
+                    {
+                        Content = new StringContent("Imagen eliminada correctamente. " + resp)
+                    };
+                    return response;
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Archivo no se encontro");
+                    return new HttpResponseMessage(System.Net.HttpStatusCode.NoContent)
+                    {
+                        Content = new StringContent("No se encontró la foto.")
+                    };
                 }
             }
             catch (Exception ex)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.InternalServerError, "Error al consultar el archivo " + ex.Message);
+                return new HttpResponseMessage(System.Net.HttpStatusCode.InternalServerError)
+                {
+                    Content = new StringContent("Error al eliminar imagen del servidor: " + ex.Message)
+                };
             }
 
         }
+
+
 
     }
 }
